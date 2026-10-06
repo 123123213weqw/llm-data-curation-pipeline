@@ -1,0 +1,11 @@
+# Analysis/unit-test dependencies, not a pinned production vLLM environment.
+pyarrow>=24,<25
+tokenizers>=0.22,<0.23
+numpy
+jsonschema
+xxhash
+# Needed only by tensor pack-loader tests:
+torch
+# Needed only for production teacher/tokenizer integrations:
+transformers
+tree-sitter-language-pack

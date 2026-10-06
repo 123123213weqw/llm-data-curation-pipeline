@@ -1,0 +1,18 @@
+{
+  "version": 131,
+  "review_snapshot": true,
+  "files": {
+    "worker.py": "ee433a631c51d22f04c1b340ba49eb7ea0e2f110105556f5065d9d07512230d7",
+    "test_continuous.py": "2b14f7832c5550b455b91483ffb7bd689fd048812d8f19f84b8d561e033eeedb",
+    "flow.py": "154e3c9783d3deed39daafe607512709accac87b6347997ff18a7095455cffaa",
+    "engine.py": "c35b2815b9ef002cafe4a245b099387a8b492d58721372f56dfdc82ee1e54e21",
+    "common.py": "9382bdece946c79f1a32196f785f0c569d99d7a73567aa892da79aaa008ceaa7",
+    "receipt_adapter.py": "e5da15bac367a7e529cc2433e5c3da426cc090f16caded760a4f25de97d7b08d",
+    "reuse.py": "14e5b737147c5aee675843d8c04ae8cbe2661dae288c8d4961a8ee5b06cd87f8",
+    "selection.py": "262700c155c64b1a1215deb56e0ab6a85a712d9df668d30767d38679496e4c57",
+    "gpu.py": "96e528c291e51ff7361c0313e89159c3cff9b7b5fdbdf7ae10498cf7d26e84cd",
+    "primary.py": "44693b68f33fe69b5feb17b82ecefef560a81e97b5d6377a25e1e656ee4dc9ec",
+    "prepare.py": "2b9e5353691f1a762fe28744059bc3a367521bec8452adf43095dcda1ab9f4d9"
+  },
+  "not_production_launch_authorization": true
+}
