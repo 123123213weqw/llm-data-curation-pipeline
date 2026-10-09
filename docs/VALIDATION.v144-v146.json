@@ -1,0 +1,19 @@
+{
+  "snapshot": "v144/v146",
+  "date": "2026-10-09",
+  "public_source_templates": 210,
+  "cpu_gpu_matched_python_files": {
+    "v144": 35,
+    "v146": 37
+  },
+  "remote_linux_tests": {
+    "v144": 171,
+    "v146": 184,
+    "release_cpu": 46,
+    "total_passed": 401
+  },
+  "teacher_calls": 0,
+  "training_started": false,
+  "production_sources_changed": false,
+  "private_runtime_inputs_uploaded": false
+}

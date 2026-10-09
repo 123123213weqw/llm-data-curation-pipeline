@@ -1,3 +1,27 @@
+# Latest snapshot validation — v144/v146
+
+2026-10-09 public export validation:
+
+- All **35 v144 + 37 v146 Python controller/test files** matched the frozen CPU CONFIG code bindings and independently read GPU-host files by SHA-256.
+- **168 exported current files** matched bound controller/engine source SHA; this count excludes private runtime inputs and unrelated training modules. `SOURCE_MANIFEST.json` verifies **210 public source/template files**, including retained history.
+- Only infrastructure path/SSH-alias literals were normalized in public copies. Original source hashes, public hashes and edit counts are recorded per file. Production sources were not modified.
+- Python AST and JSON parsing passed. Credential/private-key/private-machine-path scans passed. Human authorization, runtime CONFIG/intent, corpus, model weights and private ledgers were excluded.
+- **Actual remote Linux tests on the sanitized public copy: 401 passed**:
+  - v144 controller suite: **171 passed**.
+  - v146 controller suite: **184 passed**.
+  - original release/parallel-CPU suite: **46 passed**, including the Linux RLIMIT_AS reference sandbox. No memory guard was weakened.
+- Suites used synthetic fixtures, temporary SQLite and loopback mock servers. No production teacher, training, systemd start/restart, Rust compile or production corpus access was performed.
+- Testing occurred in an isolated remote build directory, not in a frozen running pipeline directory.
+- This is a review snapshot, not an end-to-end deployable production bundle. Passing fixture tests does not establish production throughput or quality-gate acceptance for new sources.
+
+```bash
+python3 -B tools/verify_source_manifest.py
+bash tools/run_current_tests.sh
+bash tools/run_release_tests_linux.sh
+```
+
+## Historical validation (v131 export)
+
 # Snapshot validation
 
 2026-10-06 public export validation:

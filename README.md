@@ -1,20 +1,28 @@
-# LLM data curation pipeline — v131 review snapshot
+# LLM data curation pipeline — v144/v146 review snapshot
 
-当前运行的 **Qwen FP8 / CPU→GPU→CPU 连续清洗管线**的公开代码快照，供代码审阅与瓶颈分析。
+截至 2026-10-09 的 **Qwen FP8 / CPU→GPU→CPU 连续清洗管线**的公开代码快照，供代码审阅与瓶颈分析。
 
-这不是一个新写的概念 demo：控制器 11 个 Python 文件与所需冻结生产依赖已逐 SHA-256 对照。公开副本仅将私有机器路径和 SSH 别名替换成示例值；[SOURCE_MANIFEST.json](SOURCE_MANIFEST.json) 逐文件记录原始/公开 SHA 和是否属于生产绑定依赖。**原运行目录、冻结代码、已有请求和任务均未修改。**
+这不是一个新写的概念 demo：v144 的 35 个、v146 的 37 个 Python 控制器/测试文件与所需冻结生产依赖已逐 SHA-256 对照。公开副本仅将私有机器路径和 SSH 别名替换成示例值；[SOURCE_MANIFEST.json](SOURCE_MANIFEST.json) 逐文件记录原始/公开 SHA 和是否属于生产绑定依赖。**原运行目录、冻结代码、已有请求和任务均未修改。**
+
+## 最新版本与范围
+
+- **v144 主链路**：[目录](packages/curation-continuous-v144)。代码/技术领域缺口调度，原文预热、压缩传输、独立 GPU 审核、CPU 全门发布。
+- **v146 GPU 0 补充链路**：[目录](packages/curation-continuous-v146)。FineWiki 中文单独 scope；严格复核原同教师参考、只读复制，不清旧 HOLD、不重复教师请求。与 v144 共用原库存分配锁和最终单 writer 锁。
+- [最新改动与并行边界](docs/current-v144-v146.zh.md) · [v146 并行守卫](packages/curation-continuous-v146/parallel_guard.py) · [领域缺口排序](packages/curation-continuous-v144/deficit.py)
+- v131 源码保留用于历史对比，旧 git 提交保留原完整快照。共享依赖目录现在对应最新导出的依赖；不要把当前工作树当成旧版本冻结部署。
+- 未发布失败的 v145 准备目录、真实运行授权/配置/输入、私有日志与账本。此更新**不部署、不重启服务器任务**。
 
 ## 从哪里开始看
 
 | 入口 | 作用 |
 |---|---|
-| [prepare.py](packages/curation-continuous-v131/prepare.py) | 库存选择、完整正文读取、heldout、原始质量门、候选预热、落盘队列 |
-| [selection.py](packages/curation-continuous-v131/selection.py) | 在 train/validation/test 选择及 LIMIT 前排除旧分配/旧尝试 |
-| [primary.py](packages/curation-continuous-v131/primary.py) | 持久传输、结果核验导入、发布队列、**单一发布 writer** |
-| [gpu.py](packages/curation-continuous-v131/gpu.py) | 已加载模型复用、逻辑槽位到实际 GPU 的 lane 调度、每来源 READY 反馈门 |
-| [engine.py](packages/curation-continuous-v131/engine.py) | 无组 barrier 的动态并发 refill，未知结果停止新增但排空在途 |
-| [worker.py](packages/curation-continuous-v131/worker.py) | 请求准入、协议身份、完整正文质检、私有请求账本、实际结果 |
-| [receipt_adapter.py](packages/curation-continuous-v131/receipt_adapter.py) | terminal/JSONL/私有 SQL 绑定，READY 的 SQL/证据/物理包 SHA 核验 |
+| [prepare.py](packages/curation-continuous-v144/prepare.py) | 库存选择、完整正文读取、heldout、原始质量门、候选预热、落盘队列 |
+| [selection.py](packages/curation-continuous-v144/selection.py) | 在 train/validation/test 选择及 LIMIT 前排除旧分配/旧尝试 |
+| [primary.py](packages/curation-continuous-v144/primary.py) | 持久传输、结果核验导入、发布队列、**单一发布 writer** |
+| [gpu.py](packages/curation-continuous-v144/gpu.py) | 已加载模型复用、逻辑槽位到实际 GPU 的 lane 调度、每来源 READY 反馈门 |
+| [engine.py](packages/curation-continuous-v144/engine.py) | 无组 barrier 的动态并发 refill，未知结果停止新增但排空在途 |
+| [worker.py](packages/curation-continuous-v144/worker.py) | 请求准入、协议身份、完整正文质检、私有请求账本、实际结果 |
+| [receipt_adapter.py](packages/curation-continuous-v144/receipt_adapter.py) | terminal/JSONL/私有 SQL 绑定，READY 的 SQL/证据/物理包 SHA 核验 |
 | [p0_qwen_overnight_slot_v67.py](scripts/p0_qwen_overnight_slot_v67.py) | 原始容量门、全流程发布适配及 12 小时单 writer 锁 |
 | [p0_release_inventory_batch_qwen_v35.py](scripts/p0_release_inventory_batch_qwen_v35.py) | 全库存去重、隔离、4096 打包、发布收据 |
 | [p0_parallel_near_v21.py](scripts/p0_parallel_near_v21.py) | 只读并行 global near 查询与有序 local merge |
@@ -53,14 +61,15 @@ flowchart LR
 
 不包含：语料/候选原文、模型权重、tokenizer 实物、私有请求账本、运行 SQLite、来源参考实物、评测原题库、运行 CONFIG、机器身份绑定、密钥、账户配置、部署授权、真实 READY/launch intent。
 
-因此这是 **review snapshot，不是可一键启动的生产部署包**。源码内历史配置中的数字目标/并发值也不代表当前运行值；实际 v131 性能字段见 [示例性能配置](examples/PERFORMANCE.v131.example.json)，其中 `goal_ready_train_tokens_per_hour` 是目标而非实测。
+因此这是 **review snapshot，不是可一键启动的生产部署包**。源码内历史配置中的数字目标/并发值也不代表当前运行值；历史 v131 性能字段见 [示例性能配置](examples/PERFORMANCE.v131.example.json)，其中 `goal_ready_train_tokens_per_hour` 是目标而非实测。
 
 ## 离线测试
 
 Linux + Python，先在独立环境安装 [requirements-analysis.txt](requirements-analysis.txt)，再运行：
 
 ```bash
-bash tools/run_offline_tests.sh
+bash tools/run_current_tests.sh
+# 历史小套件：bash tools/run_offline_tests.sh
 ```
 
 测试只用合成 fixture、临时 SQLite 和 loopback 假服务器，不调用真实教师或训练，不创建/重启 systemd 服务。源码解析、测试和公开源 manifest 校验结果见 [VALIDATION.md](docs/VALIDATION.md)。

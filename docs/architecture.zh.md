@@ -1,5 +1,7 @@
 # v131 数据流与状态边界
 
+> 历史 v131 说明/观察窗口，非 v144/v146 当前性能。最新链路见 [current-v144-v146.zh.md](current-v144-v146.zh.md)。
+
 ## 1. CPU prepare
 
 `prepare.main` 轮转来源目录，重新核验独立 reference/source teacher scope。`selection.select_fresh` 在所有 train/validation/test 的 reserve/rank/LIMIT 前应用 SQL 临时 exclusion 表；修复了旧版选完再删旧 body 导致 heldout 消失的问题。

@@ -25,3 +25,5 @@ RECOVERY_PLAN.json
 AUTHORIZATION*.json
 *INTENT*.json
 *READY_INTERNAL*.json
+*internal_authorization*.json
+PARALLEL_SCOPE_BOUNDARY.json
