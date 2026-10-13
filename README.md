@@ -1,10 +1,20 @@
-# LLM data curation pipeline — v144/v146 review snapshot
+# LLM data curation pipeline — pretraining v144/v146 + SFT acceptance v12/v13
 
 截至 2026-10-09 的 **Qwen FP8 / CPU→GPU→CPU 连续清洗管线**的公开代码快照，供代码审阅与瓶颈分析。
 
 这不是一个新写的概念 demo：v144 的 35 个、v146 的 37 个 Python 控制器/测试文件与所需冻结生产依赖已逐 SHA-256 对照。公开副本仅将私有机器路径和 SSH 别名替换成示例值；[SOURCE_MANIFEST.json](SOURCE_MANIFEST.json) 逐文件记录原始/公开 SHA 和是否属于生产绑定依赖。**原运行目录、冻结代码、已有请求和任务均未修改。**
 
-## 最新版本与范围
+## SFT 新增链路（2026-10-13）
+
+新增 [SFT 质量/打包/causal-loader 接入代码](packages/sft-acceptance-v13) 和 [流程与验收说明](docs/sft-acceptance-v12-v13.zh.md)。远程 Linux CPU **89 项测试实跑通过**；v12 有限 96 条已审核样本的小批端到端验收已完成：28 条 / 946 assistant targets 物理包验证，68 条 HOLD。它不是全量 SFT READY，不启动学生训练，不恢复旧教师任务。历史预训练快照和所有冻结生产文件保持原样。
+
+```bash
+bash tools/run_sft_tests.sh
+```
+
+逐文件 SHA 见 [SFT_SOURCE_MANIFEST.json](SFT_SOURCE_MANIFEST.json)。代码公开，真实语料、缓存、账本、评测题库、tokenizer、部署配置及运行授权不公开。
+
+## 最新预训练版本与范围
 
 - **v144 主链路**：[目录](packages/curation-continuous-v144)。代码/技术领域缺口调度，原文预热、压缩传输、独立 GPU 审核、CPU 全门发布。
 - **v146 GPU 0 补充链路**：[目录](packages/curation-continuous-v146)。FineWiki 中文单独 scope；严格复核原同教师参考、只读复制，不清旧 HOLD、不重复教师请求。与 v144 共用原库存分配锁和最终单 writer 锁。

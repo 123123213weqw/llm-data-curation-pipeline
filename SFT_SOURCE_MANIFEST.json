@@ -1,0 +1,75 @@
+{
+  "snapshot": "sft-acceptance-v13-review-with-v12-pilot",
+  "purpose": "CPU cached integration pilot plus independently fixed future judge source; not a one-click deployment or student training approval",
+  "synthetic_fixture_only": true,
+  "private_runtime_data_exported": false,
+  "remote_linux_tests": 89,
+  "files": {
+    "packages/sft-acceptance-v13/test_judge.py": {
+      "original_sha256": "1c108c8344b41ea0f1eafc4c7425f09ce74250587f7476f623fb82ff799228dd",
+      "published_sha256": "1c108c8344b41ea0f1eafc4c7425f09ce74250587f7476f623fb82ff799228dd",
+      "exact_tested_v13_review_copy": true,
+      "frozen_v10_v12_not_modified": true
+    },
+    "packages/sft-acceptance-v13/pilot_cpu.py": {
+      "original_sha256": "c2167dee9182bafdf8bba6e3d7de71c5370b3dd36fc712f5d1d70472dbd3aeba",
+      "published_sha256": "c2167dee9182bafdf8bba6e3d7de71c5370b3dd36fc712f5d1d70472dbd3aeba",
+      "exact_tested_v13_review_copy": true,
+      "frozen_v10_v12_not_modified": true
+    },
+    "packages/sft-acceptance-v13/test_sft_adapter.py": {
+      "original_sha256": "920b560e880ee108d46482de339e251a01648339ed56f2ac89f584614f09fea4",
+      "published_sha256": "920b560e880ee108d46482de339e251a01648339ed56f2ac89f584614f09fea4",
+      "exact_tested_v13_review_copy": true,
+      "frozen_v10_v12_not_modified": true
+    },
+    "packages/sft-acceptance-v13/gold.py": {
+      "original_sha256": "b6bfbb12363b8319f884baffcd703fa04990b8e41859c641dee0f0bdb3ff2e13",
+      "published_sha256": "b6bfbb12363b8319f884baffcd703fa04990b8e41859c641dee0f0bdb3ff2e13",
+      "exact_tested_v13_review_copy": true,
+      "frozen_v10_v12_not_modified": true
+    },
+    "packages/sft-acceptance-v13/judge.py": {
+      "original_sha256": "62b9622aff828e695669bb3805fe8260c857260879eaccbe657ecaf3f5a68ed9",
+      "published_sha256": "62b9622aff828e695669bb3805fe8260c857260879eaccbe657ecaf3f5a68ed9",
+      "exact_tested_v13_review_copy": true,
+      "frozen_v10_v12_not_modified": true
+    },
+    "packages/sft-acceptance-v13/token_count.py": {
+      "original_sha256": "911c476adc67e3601c4d61293c1f19fcf1328d89e73e5c92052cd036f1c17bc1",
+      "published_sha256": "911c476adc67e3601c4d61293c1f19fcf1328d89e73e5c92052cd036f1c17bc1",
+      "exact_tested_v13_review_copy": true,
+      "frozen_v10_v12_not_modified": true
+    },
+    "packages/sft-acceptance-v13/sft_adapter.py": {
+      "original_sha256": "0260d74af05677add8f119b9e71594d75a3ba64b6cf92ceb37f34dfe6c83013a",
+      "published_sha256": "0260d74af05677add8f119b9e71594d75a3ba64b6cf92ceb37f34dfe6c83013a",
+      "exact_tested_v13_review_copy": true,
+      "frozen_v10_v12_not_modified": true
+    },
+    "packages/sft-acceptance-v13/code_contracts.py": {
+      "original_sha256": "c598060c3addd42b9dc6661a2f04e23d3ccc5f6507ecbadf3ee4bc022faf94ae",
+      "published_sha256": "c598060c3addd42b9dc6661a2f04e23d3ccc5f6507ecbadf3ee4bc022faf94ae",
+      "exact_tested_v13_review_copy": true,
+      "frozen_v10_v12_not_modified": true
+    },
+    "packages/sft-acceptance-v13/math_tools.py": {
+      "original_sha256": "da47ad5b243eafd0484ecd91095b286d3b82ce423655ec6bc681f26b0c00d1c4",
+      "published_sha256": "da47ad5b243eafd0484ecd91095b286d3b82ce423655ec6bc681f26b0c00d1c4",
+      "exact_tested_v13_review_copy": true,
+      "frozen_v10_v12_not_modified": true
+    },
+    "packages/sft-acceptance-v13/test_token_count.py": {
+      "original_sha256": "3b2724943d071869ff914affd87eef7d49595ab0056afad051b55f03ada23d42",
+      "published_sha256": "3b2724943d071869ff914affd87eef7d49595ab0056afad051b55f03ada23d42",
+      "exact_tested_v13_review_copy": true,
+      "frozen_v10_v12_not_modified": true
+    }
+  },
+  "production_pilot_tests": 88,
+  "production_pilot_accepted": 28,
+  "production_pilot_held": 68,
+  "formal_sft_ready_samples": 0,
+  "review_v13_deployed_on_real_data": false,
+  "remote_tests_sha256": "fdd344d067d283fb98d34c4fd51334e8a950b4a2cadbbd28799fa2f171a4f45f"
+}
